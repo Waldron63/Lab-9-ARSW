@@ -339,61 +339,91 @@ Antes de continuar puede eliminar el grupo de recursos anterior para evitar gast
 
 1. El Balanceador de Carga es un recurso fundamental para habilitar la escalabilidad horizontal de nuestro sistema, por eso en este paso cree un balanceador de carga dentro de Azure tal cual como se muestra en la imágen adjunta.
 
-![](images/part2/part2-lb-create.png)
+<img width="1254" height="964" alt="image" src="https://github.com/user-attachments/assets/703f1b26-d0db-4c3a-ab0e-37054ae7731e" />
+
+<img width="1600" height="789" alt="image" src="https://github.com/user-attachments/assets/cb6fa73c-f35f-4dde-bbca-6ea1f3445c71" />
+
 
 2. A continuación cree un *Backend Pool*, guiese con la siguiente imágen.
 
-![](images/part2/part2-lb-bp-create.png)
+<img width="1278" height="929" alt="image" src="https://github.com/user-attachments/assets/f00c23ef-5739-4b93-8477-4a7916058a5e" />
 
 3. A continuación cree un *Health Probe*, guiese con la siguiente imágen.
 
-![](images/part2/part2-lb-hp-create.png)
+<img width="1404" height="932" alt="image" src="https://github.com/user-attachments/assets/22e8f8df-22d8-4eb9-8f4d-959808b3b34f" />
 
 4. A continuación cree un *Load Balancing Rule*, guiese con la siguiente imágen.
 
-![](images/part2/part2-lb-lbr-create.png)
+<img width="1362" height="931" alt="image" src="https://github.com/user-attachments/assets/83bfc60b-400b-4bc0-aec7-aa5f31eba493" />
 
 5. Cree una *Virtual Network* dentro del grupo de recursos, guiese con la siguiente imágen.
 
-![](images/part2/part2-vn-create.png)
+<img width="1440" height="933" alt="image" src="https://github.com/user-attachments/assets/c1572642-a43f-4cdd-b133-2ad8281c027d" />
+
+<img width="1600" height="823" alt="image" src="https://github.com/user-attachments/assets/18d2c374-1437-4ef8-991b-458f85dbe81d" />
+
 
 #### Crear las maquinas virtuales (Nodos)
 
 Ahora vamos a crear 3 VMs (VM1, VM2 y VM3) con direcciones IP públicas standar en 3 diferentes zonas de disponibilidad. Después las agregaremos al balanceador de carga.
 
+NOTA: Dentro del [informe parte 1](Informe-parte-1.docx) encontrará la justificación del por qué únicamente se pudieron crear 2 maquinas
+
 1. En la configuración básica de la VM guíese por la siguiente imágen. Es importante que se fije en la "Avaiability Zone", donde la VM1 será 1, la VM2 será 2 y la VM3 será 3.
 
-![](images/part2/part2-vm-create1.png)
+VM2
+
+<img width="1365" height="929" alt="image" src="https://github.com/user-attachments/assets/e367c13d-3922-4883-ae16-6ff92ac5e978" />
+
+<img width="1390" height="928" alt="image" src="https://github.com/user-attachments/assets/9b80f9d1-09df-4c44-bc5b-f46d08a2affa" />
+
+VM3
+
+<img width="1600" height="958" alt="image" src="https://github.com/user-attachments/assets/d4ea24fb-0b9c-4ab6-95d9-a3df05ea4eb4" />
+
+<img width="1600" height="820" alt="image" src="https://github.com/user-attachments/assets/be753d19-a55c-48d4-a434-1a2be247c49a" />
+
 
 2. En la configuración de networking, verifique que se ha seleccionado la *Virtual Network*  y la *Subnet* creadas anteriormente. Adicionalmente asigne una IP pública y no olvide habilitar la redundancia de zona.
 
-![](images/part2/part2-vm-create2.png)
+VM2
+
+<img width="1600" height="795" alt="image" src="https://github.com/user-attachments/assets/3293ffc1-3091-47e4-8212-b0384793c723" />
+
+
+VM3
+
+<img width="1600" height="922" alt="image" src="https://github.com/user-attachments/assets/db1dcc96-1e03-4fac-9566-d25d7441b763" />
 
 3. Para el Network Security Group seleccione "avanzado" y realice la siguiente configuración. No olvide crear un *Inbound Rule*, en el cual habilite el tráfico por el puerto 3000. Cuando cree la VM2 y la VM3, no necesita volver a crear el *Network Security Group*, sino que puede seleccionar el anteriormente creado.
 
-![](images/part2/part2-vm-create3.png)
+VM2
+
+<img width="1600" height="791" alt="image" src="https://github.com/user-attachments/assets/47ef6cec-e43b-4514-bd36-dd1da38f22a3" />
+
+VM3
+
+<img width="1600" height="922" alt="image" src="https://github.com/user-attachments/assets/00f42f91-94fa-46b7-a804-269669e68ba8" />
 
 4. Ahora asignaremos esta VM a nuestro balanceador de carga, para ello siga la configuración de la siguiente imágen.
 
-![](images/part2/part2-vm-create4.png)
+VM2
+
+<img width="1600" height="794" alt="image" src="https://github.com/user-attachments/assets/01df77d7-a458-458c-a17e-4ea54ef7adb3" />
+
+VM3
+
+<img width="1600" height="922" alt="image" src="https://github.com/user-attachments/assets/3acb4f90-37c9-48a0-94f4-71645b4d1790" />
 
 5. Finalmente debemos instalar la aplicación de Fibonacci en la VM. para ello puede ejecutar el conjunto de los siguientes comandos, cambiando el nombre de la VM por el correcto
 
-```
-git clone https://github.com/daprieto1/ARSW_LOAD-BALANCING_AZURE.git
+VM2
 
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
-source /home/vm1/.bashrc
-nvm install node
+<img width="781" height="372" alt="image" src="https://github.com/user-attachments/assets/f8e54d84-c364-4664-8a6e-1e90351653bc" />
 
-cd ARSW_LOAD-BALANCING_AZURE/FibonacciApp
-npm install
+VM3
 
-npm install forever -g
-forever start FibonacciApp.js
-```
-
-Realice este proceso para las 3 VMs, por ahora lo haremos a mano una por una, sin embargo es importante que usted sepa que existen herramientas para aumatizar este proceso, entre ellas encontramos Azure Resource Manager, OsDisk Images, Terraform con Vagrant y Paker, Puppet, Ansible entre otras.
+<img width="743" height="370" alt="image" src="https://github.com/user-attachments/assets/c4991c13-d4c4-42b2-a460-8dfd34836979" />
 
 #### Probar el resultado final de nuestra infraestructura
 
@@ -404,7 +434,15 @@ http://52.155.223.248/
 http://52.155.223.248/fibonacci/1
 ```
 
+Resultado
+
+<img width="1600" height="846" alt="image" src="https://github.com/user-attachments/assets/687420e7-3350-445d-b6f1-8f7f9a0b3ff2" />
+
+<img width="1600" height="490" alt="image" src="https://github.com/user-attachments/assets/5bbdf775-0de6-4cc1-85b4-878c761b46b3" />
+
 2. Realice las pruebas de carga con `newman` que se realizaron en la parte 1 y haga un informe comparativo donde contraste: tiempos de respuesta, cantidad de peticiones respondidas con éxito, costos de las 2 infraestrucruras, es decir, la que desarrollamos con balanceo de carga horizontal y la que se hizo con una maquina virtual escalada.
+
+Para consultar el proceso realizado revisar el [informe de la parte 1](Informe-parte-1.docx)
 
 3. Agregue una 4 maquina virtual y realice las pruebas de newman, pero esta vez no lance 2 peticiones en paralelo, sino que incrementelo a 4. Haga un informe donde presente el comportamiento de la CPU de las 4 VM y explique porque la tasa de éxito de las peticiones aumento con este estilo de escalabilidad.
 
@@ -415,17 +453,84 @@ newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALAN
 newman run ARSW_LOAD-BALANCING_AZURE.postman_collection.json -e [ARSW_LOAD-BALANCING_AZURE].postman_environment.json -n 10
 ```
 
+Para consultar el proceso realizado revisar el [informe de la parte 2](Informe-parte-2.docx)
+
 **Preguntas**
 
 * ¿Cuáles son los tipos de balanceadores de carga en Azure y en qué se diferencian?, ¿Qué es SKU, qué tipos hay y en qué se diferencian?, ¿Por qué el balanceador de carga necesita una IP pública?
+
+Azure Load Balancer(Capa 4 TCP/UDP) -> se usa para distribuir tráfico TCP/UDP a VMs, VM Scale Sets y NICs dentro de la misma región, posee baja latencia NAT de puertos, heatlh probes a nivel de transporte, soporta altos IOPS/throughput
+
+Application Gateway(Capa 7 HTTP/HTTPS) -> para enrutamiento de URL, path-basde routing, cooki-based session affinity, Web Application Firewall, TLS.
+
+Azure Front Door(Capa 7 HTTP/HTTPS) + CDN -> para balanceo global, caching, enrutamiento basado en latencia y reglas HTTP a nivel global
+
+Azure Traffic Manager DNS-based -> para enrutamiento DNS, no balancea conexiones individuales, sino responde resolviendo nombres a endpoints.
+
+Gateway Load Balancer -> para integrar appliances de red con balanceo y ser el "siguiente salto" en la ruta, facilita el despliegue de firewalls, IDS/IPS
+
+SKU -> se refuere a la edición/variante de un servicio con distintas características y SLAs
+
+Para los load balancer hay principalmente:
+
+Basic -> tiene menos capacidad de escala, no tiene soporte para Availability Zones, reglas limitadas, sin integración con NSG a nivel de backend, sin métricas avanzadas, utilizado para entornos de prueba o desarrollo con cargas pequeñas
+
+Standard -> Mayor escalabilidad, SLA, soporte para zonas y zone-redundant, mayor seguridad, requiere explícitamente reglas NSG, integración con Azure Monitor y diagnóstico, mas capacidades de backend pool y reglas.
+
+El balanceador necesita una IP pública porque:
+1. El servicio debe ser accesible desde internet para recibir peticiones de clientes externos
+2. Si tiene una IP privada el tráfico provendia solo de dentro de la VNet
+
 * ¿Cuál es el propósito del *Backend Pool*?
+Agrupa los recursos que recibiran el tráfico balanceado, definiendo reglas de balanceo, facilitando el escalado y aplicando reglas y heatlh probes.
+
 * ¿Cuál es el propósito del *Health Probe*?
+Verifica periodicamente la salud de cada backend para en caso negativo no reciban tráfico, evitar que peticiones sean enviadas a instancias con fallos y configurar el intervalo, timeout y numero de fallos aceptados.
+
 * ¿Cuál es el propósito de la *Load Balancing Rule*? ¿Qué tipos de sesión persistente existen, por qué esto es importante y cómo puede afectar la escalabilidad del sistema?.
+El load balancing Rule mapea un frontend IP y puerto hacia el backend pool y puerto.
+
+Los tipos de sesión persisntente son:
+
+None -> cada conexión se distribuye por hashing, buena para escalar horizontalmente.
+
+Client IP -> todas las conexiones desde la misma IP del cliente van al mismo backend
+
+Client IP and protocol -> affinity basada en la pareja, más granular
+
+Es importante el tipo de sesion ya que algunas aplicaciones mantienen en memoria el estado de la sesion requiriendo afinidad para que la misma sesión siempre toque la misma instancia. 
+
+La afinidad dificulta la escalabilidad horizontal y reparto de balanceo perfecto -> si muchos clientes estan "pegados" a pocas instancias se producen sobrecargas o que otras instancias queden ociosas
+
 * ¿Qué es una *Virtual Network*? ¿Qué es una *Subnet*? ¿Para qué sirven los *address space* y *address range*?
+Virtual Network -> red virtual aislada lógicamente, es el contenedor de subredes, direcciones IP, ruteo, NSGs, etc.
+
+Subnet -> segmento dentro de una VNet con su propio rango de direcciones. Permite separar responsabilidades, aplicar NSGs por subnet y control granular.
+
+Address space -> el bloque CIDR asignado a la VNet.
+
+Address range -> Bloque CIDR asignado a una subnet dentro del VNet.
+
 * ¿Qué son las *Availability Zone* y por qué seleccionamos 3 diferentes zonas?. ¿Qué significa que una IP sea *zone-redundant*?
+Availability Zones -> centros físicos separados dentro de una misma región, cada una tiene su propia alimentación eléctrica, refrigeración y racks.
+
+¿Por qué seleccionar 3? -> para máxima resiliencia ante fallos zonales distribuyendo recursos para tolerar caídas de alguna zona y así asegurar el servicio con las otras 2 zonas
+
+Zone-redundant IP -> una IP pública que sea redundante entre zonas, en caso de fallo en una zona, el servicio continua siendo accesible desdel la IP(Azure maneja la redundancia de esa dirección)
+
 * ¿Cuál es el propósito del *Network Security Group*?
+Un NSG controla el tráfico de red (inbound/outbound) mediante reglas basadas en IPs, puertos y protocolos; aislando capas, implementando políticas de seguridad por subnet o NIC, complementando firewalls y WAF.
+
 * Informe de newman 1 (Punto 2)
+Los informes son:
+
+[informe de la parte 1](Informe-parte-1.docx)
+
+[informe de la parte 2](Informe-parte-2.docx)
 * Presente el Diagrama de Despliegue de la solución.
+
+<img width="650" height="392" alt="image" src="https://github.com/user-attachments/assets/8935d0c3-7e88-4249-ab2e-4bdcc099a64a" />
+
 
 
 
